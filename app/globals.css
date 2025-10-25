@@ -3,97 +3,130 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* New design system: Modern tech meets old-school insurance */
 :root {
-  --background: oklch(0.9730 0.0133 286.1503);
-  --foreground: oklch(0.3015 0.0572 282.4176);
-  --card: oklch(1.0000 0 0);
-  --card-foreground: oklch(0.3015 0.0572 282.4176);
-  --popover: oklch(1.0000 0 0);
-  --popover-foreground: oklch(0.3015 0.0572 282.4176);
-  --primary: oklch(0.5417 0.1790 288.0332);
-  --primary-foreground: oklch(1.0000 0 0);
-  --secondary: oklch(0.9174 0.0435 292.6901);
-  --secondary-foreground: oklch(0.4143 0.1039 288.1742);
-  --muted: oklch(0.9580 0.0133 286.1454);
-  --muted-foreground: oklch(0.5426 0.0465 284.7435);
-  --accent: oklch(0.9221 0.0373 262.1410);
-  --accent-foreground: oklch(0.3015 0.0572 282.4176);
-  --destructive: oklch(0.6861 0.2061 14.9941);
-  --destructive-foreground: oklch(1.0000 0 0);
-  --border: oklch(0.9115 0.0216 285.9625);
-  --input: oklch(0.9115 0.0216 285.9625);
-  --ring: oklch(0.5417 0.1790 288.0332);
-  --chart-1: oklch(0.5417 0.1790 288.0332);
-  --chart-2: oklch(0.7042 0.1602 288.9880);
-  --chart-3: oklch(0.5679 0.2113 276.7065);
-  --chart-4: oklch(0.6356 0.1922 281.8054);
-  --chart-5: oklch(0.4509 0.1758 279.3838);
-  --radius: 0.5rem;
-  --sidebar: oklch(0.9580 0.0133 286.1454);
-  --sidebar-foreground: oklch(0.3015 0.0572 282.4176);
-  --sidebar-primary: oklch(0.5417 0.1790 288.0332);
-  --sidebar-primary-foreground: oklch(1.0000 0 0);
-  --sidebar-accent: oklch(0.9221 0.0373 262.1410);
-  --sidebar-accent-foreground: oklch(0.3015 0.0572 282.4176);
-  --sidebar-border: oklch(0.9115 0.0216 285.9625);
-  --sidebar-ring: oklch(0.5417 0.1790 288.0332);
+  /* Traditional Insurance Blues - Trust & Stability */
+  --navy-950: oklch(0.18 0.04 250.0);
+  --navy-900: oklch(0.25 0.05 250.0);
+  --navy-800: oklch(0.32 0.06 250.0);
+  --navy-700: oklch(0.4 0.07 250.0);
+  --navy-600: oklch(0.5 0.08 250.0);
+
+  /* Modern Tech Accent - Innovation & Digital */
+  --tech-cyan: oklch(0.75 0.15 195.0);
+  --tech-cyan-dark: oklch(0.65 0.14 195.0);
+
+  /* Neutral Grays - Professional & Clean */
+  --slate-50: oklch(0.985 0.005 250.0);
+  --slate-100: oklch(0.96 0.01 250.0);
+  --slate-200: oklch(0.92 0.015 250.0);
+  --slate-300: oklch(0.85 0.02 250.0);
+  --slate-400: oklch(0.7 0.025 250.0);
+  --slate-500: oklch(0.55 0.03 250.0);
+  --slate-600: oklch(0.45 0.035 250.0);
+  --slate-700: oklch(0.38 0.04 250.0);
+  --slate-800: oklch(0.3 0.045 250.0);
+  --slate-900: oklch(0.22 0.05 250.0);
+
+  /* Success & Error States */
+  --success: oklch(0.65 0.15 145.0);
+  --error: oklch(0.55 0.22 25.0);
+  --warning: oklch(0.75 0.15 75.0);
+
+  /* Light Mode - Clean & Professional */
+  --background: var(--slate-50);
+  --foreground: var(--navy-900);
+  --card: oklch(1.0 0 0);
+  --card-foreground: var(--navy-900);
+  --popover: oklch(1.0 0 0);
+  --popover-foreground: var(--navy-900);
+  --primary: var(--navy-700);
+  --primary-foreground: oklch(1.0 0 0);
+  --secondary: var(--slate-200);
+  --secondary-foreground: var(--navy-800);
+  --muted: var(--slate-100);
+  --muted-foreground: var(--slate-600);
+  --accent: var(--tech-cyan);
+  --accent-foreground: var(--navy-950);
+  --destructive: var(--error);
+  --destructive-foreground: oklch(1.0 0 0);
+  --border: var(--slate-300);
+  --input: var(--slate-300);
+  --ring: var(--tech-cyan);
+  --chart-1: var(--navy-700);
+  --chart-2: var(--tech-cyan);
+  --chart-3: var(--navy-600);
+  --chart-4: var(--slate-500);
+  --chart-5: var(--navy-800);
+  --radius: 0.375rem;
+  --sidebar: var(--slate-100);
+  --sidebar-foreground: var(--navy-900);
+  --sidebar-primary: var(--navy-700);
+  --sidebar-primary-foreground: oklch(1.0 0 0);
+  --sidebar-accent: var(--slate-200);
+  --sidebar-accent-foreground: var(--navy-800);
+  --sidebar-border: var(--slate-300);
+  --sidebar-ring: var(--tech-cyan);
   --shadow-x: 0px;
-  --shadow-y: 1px;
-  --shadow-blur: 2px;
+  --shadow-y: 2px;
+  --shadow-blur: 8px;
   --shadow-spread: 0px;
-  --shadow-opacity: 0.05;
-  --shadow-color: #000000;
+  --shadow-opacity: 0.08;
+  --shadow-color: var(--navy-950);
 }
 
 .dark {
-  --background: oklch(0.1743 0.0227 283.7998);
-  --foreground: oklch(0.9185 0.0257 285.8834);
-  --card: oklch(0.2284 0.0384 282.9324);
-  --card-foreground: oklch(0.9185 0.0257 285.8834);
-  --popover: oklch(0.2284 0.0384 282.9324);
-  --popover-foreground: oklch(0.9185 0.0257 285.8834);
-  --primary: oklch(0.7162 0.1597 290.3962);
-  --primary-foreground: oklch(0.1743 0.0227 283.7998);
-  --secondary: oklch(0.3139 0.0736 283.4591);
-  --secondary-foreground: oklch(0.8367 0.0849 285.9111);
-  --muted: oklch(0.2710 0.0621 281.4377);
-  --muted-foreground: oklch(0.7166 0.0462 285.1741);
-  --accent: oklch(0.3354 0.0828 280.9705);
-  --accent-foreground: oklch(0.9185 0.0257 285.8834);
-  --destructive: oklch(0.6861 0.2061 14.9941);
-  --destructive-foreground: oklch(1.0000 0 0);
-  --border: oklch(0.3261 0.0597 282.5832);
-  --input: oklch(0.3261 0.0597 282.5832);
-  --ring: oklch(0.7162 0.1597 290.3962);
-  --chart-1: oklch(0.7162 0.1597 290.3962);
-  --chart-2: oklch(0.6382 0.1047 274.9117);
-  --chart-3: oklch(0.7482 0.1235 244.7492);
-  --chart-4: oklch(0.7124 0.0977 186.6761);
-  --chart-5: oklch(0.7546 0.1831 346.8124);
-  --sidebar: oklch(0.2284 0.0384 282.9324);
-  --sidebar-foreground: oklch(0.9185 0.0257 285.8834);
-  --sidebar-primary: oklch(0.7162 0.1597 290.3962);
-  --sidebar-primary-foreground: oklch(0.1743 0.0227 283.7998);
-  --sidebar-accent: oklch(0.3354 0.0828 280.9705);
-  --sidebar-accent-foreground: oklch(0.9185 0.0257 285.8834);
-  --sidebar-border: oklch(0.3261 0.0597 282.5832);
-  --sidebar-ring: oklch(0.7162 0.1597 290.3962);
+  /* Dark Mode - Modern with Traditional Depth */
+  --background: var(--navy-950);
+  --foreground: var(--slate-100);
+  --card: var(--navy-900);
+  --card-foreground: var(--slate-100);
+  --popover: var(--navy-900);
+  --popover-foreground: var(--slate-100);
+  --primary: var(--tech-cyan);
+  --primary-foreground: var(--navy-950);
+  --secondary: var(--navy-800);
+  --secondary-foreground: var(--slate-200);
+  --muted: var(--navy-800);
+  --muted-foreground: var(--slate-400);
+  --accent: var(--tech-cyan);
+  --accent-foreground: var(--navy-950);
+  --destructive: var(--error);
+  --destructive-foreground: oklch(1.0 0 0);
+  --border: var(--navy-800);
+  --input: var(--navy-800);
+  --ring: var(--tech-cyan);
+  --chart-1: var(--tech-cyan);
+  --chart-2: var(--navy-600);
+  --chart-3: var(--slate-400);
+  --chart-4: var(--navy-700);
+  --chart-5: var(--tech-cyan-dark);
+  --sidebar: var(--navy-900);
+  --sidebar-foreground: var(--slate-100);
+  --sidebar-primary: var(--tech-cyan);
+  --sidebar-primary-foreground: var(--navy-950);
+  --sidebar-accent: var(--navy-800);
+  --sidebar-accent-foreground: var(--slate-200);
+  --sidebar-border: var(--navy-800);
+  --sidebar-ring: var(--tech-cyan);
   --shadow-x: 0px;
-  --shadow-y: 1px;
-  --shadow-blur: 2px;
+  --shadow-y: 2px;
+  --shadow-blur: 12px;
   --shadow-spread: 0px;
-  --shadow-opacity: 0.05;
+  --shadow-opacity: 0.25;
   --shadow-color: #000000;
 }
 
 @theme inline {
-  --font-sans: 'Geist', 'Geist Fallback';
-  --font-mono: 'Geist Mono', 'Geist Mono Fallback';
+  --font-sans: "Geist", "Geist Fallback";
+  --font-mono: "Geist Mono", "Geist Mono Fallback";
 
-  /* Brand Colors */
-  --color-primary: #00eefd;
-  --color-primary-dark: #00d4e3;
-  --color-dark: #0f172a;
+  /* Updated brand colors for modern tech + traditional insurance */
+  --color-primary: var(--navy-700);
+  --color-primary-dark: var(--navy-800);
+  --color-accent: var(--tech-cyan);
+  --color-accent-dark: var(--tech-cyan-dark);
+  --color-dark: var(--navy-950);
 
   /* Design Tokens */
   --color-background: var(--background);
@@ -120,9 +153,9 @@
   --color-chart-3: var(--chart-3);
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 2px);
   --radius-xl: calc(var(--radius) + 4px);
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
@@ -132,15 +165,26 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
-  --font-serif: 'Source Serif 4', 'Source Serif 4 Fallback';
+  --font-serif: "Source Serif 4", "Source Serif 4 Fallback";
   /* computed shadow variables below - do not modify */
-  --shadow-2xs: var(--shadow-x) var(--shadow-y) color-mix(in srgb, var(--shadow-color) calc(var(--shadow-opacity) * 100%), transparent);
-  --shadow-xs: var(--shadow-x) var(--shadow-y) var(--shadow-blur) var(--shadow-spread) color-mix(in srgb, var(--shadow-color) calc(var(--shadow-opacity) * 100%), transparent);
-  --shadow-sm: var(--shadow-x) var(--shadow-y) calc(var(--shadow-blur) * 1.5) var(--shadow-spread) color-mix(in srgb, var(--shadow-color) calc(var(--shadow-opacity) * 100%), transparent);
-  --shadow-md: calc(var(--shadow-x) * 2) calc(var(--shadow-y) * 2) calc(var(--shadow-blur) * 3) calc(var(--shadow-spread) - 1px) color-mix(in srgb, var(--shadow-color) calc(var(--shadow-opacity) * 100%), transparent);
-  --shadow-lg: calc(var(--shadow-x) * 4) calc(var(--shadow-y) * 4) calc(var(--shadow-blur) * 5) calc(var(--shadow-spread) - 3px) color-mix(in srgb, var(--shadow-color) calc(var(--shadow-opacity) * 100%), transparent);
-  --shadow-xl: calc(var(--shadow-x) * 6) calc(var(--shadow-y) * 6) calc(var(--shadow-blur) * 7) calc(var(--shadow-spread) - 5px) color-mix(in srgb, var(--shadow-color) calc(var(--shadow-opacity) * 100%), transparent);
-  --shadow-2xl: calc(var(--shadow-x) * 8) calc(var(--shadow-y) * 8) calc(max(0px, var(--shadow-blur) * 9 - 8px)) calc(var(--shadow-spread) - 12px) color-mix(in srgb, var(--shadow-color) calc(var(--shadow-opacity) * 250%), transparent);
+  --shadow-2xs: var(--shadow-x) var(--shadow-y)
+    color-mix(in srgb, var(--shadow-color) calc(var(--shadow-opacity) * 100%), transparent);
+  --shadow-xs: var(--shadow-x) var(--shadow-y) var(--shadow-blur) var(--shadow-spread)
+    color-mix(in srgb, var(--shadow-color) calc(var(--shadow-opacity) * 100%), transparent);
+  --shadow-sm: var(--shadow-x) var(--shadow-y) calc(var(--shadow-blur) * 1.5) var(--shadow-spread)
+    color-mix(in srgb, var(--shadow-color) calc(var(--shadow-opacity) * 100%), transparent);
+  --shadow-md: calc(var(--shadow-x) * 2) calc(var(--shadow-y) * 2) calc(var(--shadow-blur) * 3)
+    calc(var(--shadow-spread) - 1px)
+    color-mix(in srgb, var(--shadow-color) calc(var(--shadow-opacity) * 100%), transparent);
+  --shadow-lg: calc(var(--shadow-x) * 4) calc(var(--shadow-y) * 4) calc(var(--shadow-blur) * 5)
+    calc(var(--shadow-spread) - 3px)
+    color-mix(in srgb, var(--shadow-color) calc(var(--shadow-opacity) * 100%), transparent);
+  --shadow-xl: calc(var(--shadow-x) * 6) calc(var(--shadow-y) * 6) calc(var(--shadow-blur) * 7)
+    calc(var(--shadow-spread) - 5px)
+    color-mix(in srgb, var(--shadow-color) calc(var(--shadow-opacity) * 100%), transparent);
+  --shadow-2xl: calc(var(--shadow-x) * 8) calc(var(--shadow-y) * 8) calc(max(0px, var(--shadow-blur) * 9 - 8px))
+    calc(var(--shadow-spread) - 12px)
+    color-mix(in srgb, var(--shadow-color) calc(var(--shadow-opacity) * 250%), transparent);
   --shadow: var(--shadow-md);
   --color-shadow-color: var(--shadow-color);
   --shadow-opacity: var(--shadow-opacity);
@@ -155,6 +199,49 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
+  }
+
+  /* Typography enhancements for professional readability */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-semibold tracking-tight;
+  }
+
+  h1 {
+    @apply text-4xl lg:text-5xl;
+  }
+
+  h2 {
+    @apply text-3xl lg:text-4xl;
+  }
+
+  h3 {
+    @apply text-2xl lg:text-3xl;
+  }
+
+  /* Enhanced button and interactive element styles */
+  button,
+  [role="button"] {
+    @apply transition-all duration-200;
+  }
+
+  /* Professional card styling with subtle depth */
+  .card-professional {
+    @apply bg-card border border-border shadow-lg rounded-lg;
+  }
+
+  /* Modern tech accent for CTAs */
+  .cta-modern {
+    @apply bg-accent text-accent-foreground hover:bg-accent/90 shadow-md hover:shadow-lg transition-all duration-200;
+  }
+
+  /* Traditional trust badge styling */
+  .trust-badge {
+    @apply bg-primary/5 border border-primary/20 text-primary rounded-md px-3 py-1.5 text-sm font-medium;
   }
 }

@@ -2,52 +2,79 @@
 
 import { LeadForm } from "@/components/lead-form"
 import { Card } from "@/components/ui/card"
-import { Shield, Clock, DollarSign, CheckCircle, Star, Users, Award, TrendingDown } from "lucide-react"
+import { Shield, Clock, DollarSign, CheckCircle, Star, Users, Award, TrendingDown, ArrowRight } from "lucide-react"
 import Image from "next/image"
+import { useEffect, useState } from "react"
 
 const CURRENT_YEAR = new Date().getFullYear()
 
 export const HomePageClient = () => {
+  const [showStickyCTA, setShowStickyCTA] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const formSection = document.getElementById("quote-form")
+      if (formSection) {
+        const rect = formSection.getBoundingClientRect()
+        setShowStickyCTA(rect.bottom < 0)
+      }
+    }
+
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
+
+  const scrollToForm = () => {
+    const formSection = document.getElementById("quote-form")
+    if (formSection) {
+      formSection.scrollIntoView({ behavior: "smooth", block: "start" })
+    }
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-muted/20">
-      {/* Header */}
       <header className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto flex h-16 items-center justify-between px-4">
           <div className="flex items-center gap-3">
             <Image src="/logo.png" alt="QuoteLinker" width={40} height={40} className="h-10 w-10" />
             <span className="text-xl font-bold text-foreground">QuoteLinker</span>
           </div>
-          <nav className="hidden gap-6 md:flex">
-            <a href="#how-it-works" className="text-sm font-medium transition-colors hover:text-[#00EEFD]">
-              How It Works
-            </a>
-            <a href="#why-us" className="text-sm font-medium transition-colors hover:text-[#00EEFD]">
-              Why Us
-            </a>
-            <a href="#faq" className="text-sm font-medium transition-colors hover:text-[#00EEFD]">
-              FAQ
-            </a>
-          </nav>
+          <button
+            onClick={scrollToForm}
+            className="hidden sm:inline-flex items-center gap-2 rounded-lg bg-[#00EEFD] px-6 py-2.5 text-sm font-semibold text-[#0F172A] transition-all hover:bg-[#00d4e3] hover:scale-105"
+          >
+            Get Free Quote
+            <ArrowRight className="h-4 w-4" />
+          </button>
         </div>
       </header>
 
+      {showStickyCTA && (
+        <div className="fixed bottom-0 left-0 right-0 z-40 border-t bg-background/95 p-4 backdrop-blur animate-in slide-in-from-bottom-4 duration-300 sm:hidden">
+          <button
+            onClick={scrollToForm}
+            className="w-full rounded-lg bg-[#00EEFD] px-6 py-3 text-base font-semibold text-[#0F172A] transition-all hover:bg-[#00d4e3] active:scale-95"
+          >
+            Get My Free Quote
+          </button>
+        </div>
+      )}
+
       {/* Hero Section with Form */}
-      <section className="container mx-auto px-4 py-8 lg:py-16">
+      <section id="quote-form" className="container mx-auto px-4 py-8 lg:py-16">
         <div className="grid gap-8 lg:grid-cols-2 lg:gap-12 lg:items-center">
           {/* Left Column - Headline & Social Proof */}
           <div className="flex flex-col justify-center space-y-6">
-            {/* Trust Badge */}
-            <div className="inline-flex items-center gap-2 self-start rounded-full bg-[#00EEFD]/10 px-4 py-2 text-sm font-medium text-[#00EEFD]">
+            <div className="inline-flex items-center gap-2 self-start rounded-full bg-[#00EEFD]/10 px-4 py-2 text-sm font-medium text-[#00EEFD] border border-[#00EEFD]/20">
               <Star className="h-4 w-4 fill-current" />
-              <span>Trusted by 50,000+ Minnesotans</span>
+              <span>50,000+ Minnesotans saved this year</span>
             </div>
 
             <h1 className="text-balance text-4xl font-bold leading-tight text-foreground lg:text-5xl xl:text-6xl">
-              Save Up to <span className="text-[#00EEFD]">40%</span> on Insurance
+              Save <span className="text-[#00EEFD]">$847/Year</span> on Insurance
             </h1>
             <p className="text-pretty text-lg text-muted-foreground lg:text-xl leading-relaxed">
-              Compare personalized quotes from Minnesota's top-rated insurance providers in just 2 minutes. Free, fast,
-              and no obligation.
+              Compare quotes from Minnesota's top-rated providers in 60 seconds. Most customers save within 24 hours.
             </p>
 
             {/* Key Benefits */}
@@ -57,8 +84,8 @@ export const HomePageClient = () => {
                   <Clock className="h-5 w-5 text-[#00EEFD]" />
                 </div>
                 <div>
-                  <div className="text-sm font-semibold text-foreground">2-Minute Quote</div>
-                  <div className="text-xs text-muted-foreground">Quick & easy</div>
+                  <div className="text-sm font-semibold text-foreground">60 Seconds</div>
+                  <div className="text-xs text-muted-foreground">Quick form</div>
                 </div>
               </div>
               <div className="flex items-center gap-3 rounded-lg border bg-card p-3 sm:p-4">
@@ -75,8 +102,8 @@ export const HomePageClient = () => {
                   <DollarSign className="h-5 w-5 text-[#00EEFD]" />
                 </div>
                 <div>
-                  <div className="text-sm font-semibold text-foreground">Always Free</div>
-                  <div className="text-xs text-muted-foreground">No hidden fees</div>
+                  <div className="text-sm font-semibold text-foreground">$0 Cost</div>
+                  <div className="text-xs text-muted-foreground">Always free</div>
                 </div>
               </div>
               <div className="flex items-center gap-3 rounded-lg border bg-card p-3 sm:p-4">
@@ -84,13 +111,12 @@ export const HomePageClient = () => {
                   <CheckCircle className="h-5 w-5 text-[#00EEFD]" />
                 </div>
                 <div>
-                  <div className="text-sm font-semibold text-foreground">Top Providers</div>
-                  <div className="text-xs text-muted-foreground">A+ rated carriers</div>
+                  <div className="text-sm font-semibold text-foreground">A+ Carriers</div>
+                  <div className="text-xs text-muted-foreground">Top-rated only</div>
                 </div>
               </div>
             </div>
 
-            {/* Social Proof */}
             <div className="flex items-center gap-6 pt-2">
               <div className="flex -space-x-2">
                 {[1, 2, 3, 4].map((i) => (
@@ -107,17 +133,21 @@ export const HomePageClient = () => {
                     <Star key={i} className="h-4 w-4 fill-[#00EEFD] text-[#00EEFD]" />
                   ))}
                 </div>
-                <p className="text-sm text-muted-foreground">4.9/5 from 12,000+ reviews</p>
+                <p className="text-sm text-muted-foreground">4.9/5 from 12,847 reviews</p>
               </div>
             </div>
           </div>
 
-          {/* Right Column - Lead Form */}
-          <Card className="border-2 border-[#00EEFD]/20 bg-card shadow-2xl">
+          <Card className="border-2 border-[#00EEFD]/20 bg-card shadow-2xl relative overflow-hidden">
+            <div className="bg-gradient-to-r from-[#00EEFD] to-[#00d4e3] px-6 py-3 text-center">
+              <p className="text-sm font-semibold text-[#0F172A]">
+                🔥 347 people requested quotes in the last 24 hours
+              </p>
+            </div>
             <div className="space-y-4 p-6 sm:p-8">
               <div className="space-y-2">
-                <h2 className="text-2xl font-bold text-foreground">Get Your Free Quote</h2>
-                <p className="text-sm text-muted-foreground">Join thousands of Minnesotans saving on insurance</p>
+                <h2 className="text-2xl font-bold text-foreground">Start Saving Today</h2>
+                <p className="text-sm text-muted-foreground">Get personalized quotes in 60 seconds</p>
               </div>
               <LeadForm />
             </div>
@@ -125,25 +155,24 @@ export const HomePageClient = () => {
         </div>
       </section>
 
-      {/* Stats Bar */}
-      <section className="border-y bg-muted/30 py-8">
+      <section className="border-y bg-gradient-to-r from-[#00EEFD]/5 to-[#00d4e3]/5 py-12">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
             <div className="text-center">
-              <div className="text-3xl font-bold text-[#00EEFD]">50K+</div>
-              <div className="mt-1 text-sm text-muted-foreground">Happy Customers</div>
+              <div className="text-4xl font-bold text-[#00EEFD]">50K+</div>
+              <div className="mt-2 text-sm font-medium text-foreground">Happy Customers</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-[#00EEFD]">$2.4M+</div>
-              <div className="mt-1 text-sm text-muted-foreground">Total Savings</div>
+              <div className="text-4xl font-bold text-[#00EEFD]">$847</div>
+              <div className="mt-2 text-sm font-medium text-foreground">Avg. Annual Savings</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-[#00EEFD]">40%</div>
-              <div className="mt-1 text-sm text-muted-foreground">Average Savings</div>
+              <div className="text-4xl font-bold text-[#00EEFD]">24hrs</div>
+              <div className="mt-2 text-sm font-medium text-foreground">Avg. Quote Time</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-[#00EEFD]">2 Min</div>
-              <div className="mt-1 text-sm text-muted-foreground">Average Quote Time</div>
+              <div className="text-4xl font-bold text-[#00EEFD]">4.9★</div>
+              <div className="mt-2 text-sm font-medium text-foreground">Customer Rating</div>
             </div>
           </div>
         </div>
@@ -154,44 +183,50 @@ export const HomePageClient = () => {
         <div className="container mx-auto px-4">
           <div className="text-center">
             <h2 className="text-balance text-3xl font-bold lg:text-4xl">How It Works</h2>
-            <p className="mt-3 text-pretty text-lg text-muted-foreground">
-              Get personalized quotes in three simple steps
-            </p>
+            <p className="mt-3 text-pretty text-lg text-muted-foreground">Three simple steps to start saving</p>
           </div>
           <div className="mt-12 grid gap-8 md:grid-cols-3 lg:mt-16">
             <div className="relative flex flex-col items-center text-center">
               <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-[#00EEFD] to-[#00d4e3] text-2xl font-bold text-[#0F172A] shadow-lg">
                 1
               </div>
-              <h3 className="mt-6 text-xl font-semibold">Tell Us About You</h3>
+              <h3 className="mt-6 text-xl font-semibold">Tell Us Your Needs</h3>
               <p className="mt-3 text-pretty text-muted-foreground leading-relaxed">
-                Share basic information about your insurance needs. Takes just 2 minutes and we never sell your data.
+                Answer a few quick questions about your insurance needs. Takes just 60 seconds.
               </p>
             </div>
             <div className="relative flex flex-col items-center text-center">
               <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-[#00EEFD] to-[#00d4e3] text-2xl font-bold text-[#0F172A] shadow-lg">
                 2
               </div>
-              <h3 className="mt-6 text-xl font-semibold">Compare Quotes</h3>
+              <h3 className="mt-6 text-xl font-semibold">Get Matched Instantly</h3>
               <p className="mt-3 text-pretty text-muted-foreground leading-relaxed">
-                We instantly connect you with top-rated providers who compete for your business with personalized
-                quotes.
+                We connect you with top-rated providers who compete for your business with personalized quotes.
               </p>
             </div>
             <div className="relative flex flex-col items-center text-center">
               <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-[#00EEFD] to-[#00d4e3] text-2xl font-bold text-[#0F172A] shadow-lg">
                 3
               </div>
-              <h3 className="mt-6 text-xl font-semibold">Save Money</h3>
+              <h3 className="mt-6 text-xl font-semibold">Save Big</h3>
               <p className="mt-3 text-pretty text-muted-foreground leading-relaxed">
-                Choose the best coverage at the best price. Most customers save up to 40% on their insurance premiums.
+                Choose the best coverage at the best price. Most customers save $847/year on average.
               </p>
             </div>
+          </div>
+          <div className="mt-12 text-center">
+            <button
+              onClick={scrollToForm}
+              className="inline-flex items-center gap-2 rounded-lg bg-[#00EEFD] px-8 py-4 text-lg font-semibold text-[#0F172A] transition-all hover:bg-[#00d4e3] hover:scale-105"
+            >
+              Get My Free Quote
+              <ArrowRight className="h-5 w-5" />
+            </button>
           </div>
         </div>
       </section>
 
-      {/* Why Choose Us */}
+      {/* Why Us */}
       <section id="why-us" className="border-t bg-muted/30 py-16 lg:py-24">
         <div className="container mx-auto px-4">
           <div className="text-center">
