@@ -5,6 +5,8 @@ import { Card } from "@/components/ui/card"
 import { Shield, Clock, DollarSign, CheckCircle, Star, Users, Award, TrendingDown } from "lucide-react"
 import Image from "next/image"
 
+const CURRENT_YEAR = new Date().getFullYear()
+
 export const HomePageClient = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-muted/20">
@@ -406,7 +408,7 @@ export const HomePageClient = () => {
             </div>
           </div>
           <div className="mt-8 border-t pt-8 text-center text-sm text-muted-foreground">
-            <p>© {new Date().getFullYear()} QuoteLinker. All rights reserved.</p>
+            <p>© {CURRENT_YEAR} QuoteLinker. All rights reserved.</p>
           </div>
         </div>
       </footer>
