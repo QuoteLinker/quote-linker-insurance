@@ -7,6 +7,8 @@ import Image from "next/image"
 import cities from "@/data/cities.json"
 import type { City } from "@/lib/types"
 
+const CURRENT_YEAR = new Date().getFullYear()
+
 interface CityPageProps {
   params: {
     state: string
@@ -345,9 +347,7 @@ export default async function CityPage({ params }: CityPageProps) {
                   Terms of Service
                 </a>
               </nav>
-              <p className="text-sm text-muted-foreground">
-                © {new Date().getFullYear()} QuoteLinker. All rights reserved.
-              </p>
+              <p className="text-sm text-muted-foreground">© {CURRENT_YEAR} QuoteLinker. All rights reserved.</p>
             </div>
           </div>
         </footer>
