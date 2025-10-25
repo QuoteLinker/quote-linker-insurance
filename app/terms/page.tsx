@@ -1,8 +1,10 @@
+const LAST_UPDATED = new Date().toLocaleDateString()
+
 export default function TermsPage() {
   return (
     <div className="container mx-auto max-w-4xl px-4 py-12">
       <h1 className="text-4xl font-bold">Terms of Service</h1>
-      <p className="mt-4 text-muted-foreground">Last updated: {new Date().toLocaleDateString()}</p>
+      <p className="mt-4 text-muted-foreground">Last updated: {LAST_UPDATED}</p>
 
       <div className="prose prose-slate mt-8 max-w-none dark:prose-invert">
         <h2>Agreement to Terms</h2>
