@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     siteName: "QuoteLinker",
     images: [
       {
-        url: "/og.jpg",
+        url: "/og-image.jpg",
         width: 1200,
         height: 630,
         alt: "QuoteLinker Insurance",
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "QuoteLinker - Get Instant Insurance Quotes in Minnesota",
     description: "Compare insurance quotes from top providers in Minnesota.",
-    images: ["/og.jpg"],
+    images: ["/og-image.jpg"],
   },
 }
 

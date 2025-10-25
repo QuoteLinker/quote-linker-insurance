@@ -11,8 +11,8 @@ export const HomePageClient = () => {
       {/* Header */}
       <header className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto flex h-16 items-center justify-between px-4">
-          <div className="flex items-center gap-2">
-            <Image src="/logo.jpg" alt="QuoteLinker" width={32} height={32} className="h-8 w-8 rounded" />
+          <div className="flex items-center gap-3">
+            <Image src="/logo.png" alt="QuoteLinker" width={40} height={40} className="h-10 w-10" />
             <span className="text-xl font-bold text-foreground">QuoteLinker</span>
           </div>
           <nav className="hidden gap-6 md:flex">
@@ -336,8 +336,8 @@ export const HomePageClient = () => {
         <div className="container mx-auto px-4">
           <div className="grid gap-8 md:grid-cols-4">
             <div className="space-y-4">
-              <div className="flex items-center gap-2">
-                <Image src="/logo.jpg" alt="QuoteLinker" width={32} height={32} className="h-8 w-8 rounded" />
+              <div className="flex items-center gap-3">
+                <Image src="/logo.png" alt="QuoteLinker" width={40} height={40} className="h-10 w-10" />
                 <span className="text-lg font-bold">QuoteLinker</span>
               </div>
               <p className="text-sm text-muted-foreground leading-relaxed">
