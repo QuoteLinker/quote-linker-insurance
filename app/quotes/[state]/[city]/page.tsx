@@ -30,7 +30,8 @@ function getCityData(stateSlug: string, citySlug: string): City | null {
 
 // Generate metadata for SEO
 export async function generateMetadata({ params }: CityPageProps): Promise<Metadata> {
-  const city = getCityData(params.state, params.city)
+  const { state, city: citySlug } = await params
+  const city = getCityData(state, citySlug)
 
   if (!city) {
     return {
@@ -74,7 +75,8 @@ export async function generateMetadata({ params }: CityPageProps): Promise<Metad
 }
 
 export default async function CityPage({ params }: CityPageProps) {
-  const city = getCityData(params.state, params.city)
+  const { state, city: citySlug } = await params
+  const city = getCityData(state, citySlug)
 
   if (!city) {
     notFound()
