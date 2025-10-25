@@ -1,0 +1,42 @@
+[
+  {
+    "name": "Minneapolis",
+    "slug": "minneapolis",
+    "state": "Minnesota",
+    "stateSlug": "mn",
+    "population": 429954,
+    "description": "Minneapolis is the largest city in Minnesota and a major center for commerce, culture, and healthcare in the Upper Midwest."
+  },
+  {
+    "name": "St. Paul",
+    "slug": "st-paul",
+    "state": "Minnesota",
+    "stateSlug": "mn",
+    "population": 311527,
+    "description": "St. Paul is the capital of Minnesota and forms the Twin Cities metropolitan area with Minneapolis."
+  },
+  {
+    "name": "Rochester",
+    "slug": "rochester",
+    "state": "Minnesota",
+    "stateSlug": "mn",
+    "population": 121395,
+    "description": "Rochester is home to the world-renowned Mayo Clinic and is a major medical center in the Midwest."
+  },
+  {
+    "name": "Duluth",
+    "slug": "duluth",
+    "state": "Minnesota",
+    "stateSlug": "mn",
+    "population": 86697,
+    "description": "Duluth is a port city on Lake Superior known for its maritime heritage and natural beauty."
+  },
+  {
+    "name": "Bloomington",
+    "slug": "bloomington",
+    "state": "Minnesota",
+    "stateSlug": "mn",
+    "population": 89987,
+    "description": "Bloomington is home to the Mall of America and is a major retail and entertainment destination."
+  }
+]
