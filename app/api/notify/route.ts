@@ -22,24 +22,25 @@ export async function POST(request: NextRequest) {
     // Prepare webhook payload
     const payload: WebhookPayload = {
       lead_id: lead.id,
-      timestamp: lead.created_at,
-      first_name: lead.first_name,
-      last_name: lead.last_name,
-      email: lead.email,
-      phone: lead.phone,
-      zip: lead.zip,
-      state: lead.state,
-      city: lead.city,
-      line_of_business: lead.line_of_business,
-      commercial_type: lead.commercial_type || undefined,
-      utm_source: lead.utm_source || undefined,
-      utm_medium: lead.utm_medium || undefined,
-      utm_campaign: lead.utm_campaign || undefined,
-      utm_term: lead.utm_term || undefined,
-      utm_content: lead.utm_content || undefined,
-      gclid: lead.gclid || undefined,
-      gbraid: lead.gbraid || undefined,
-      wbraid: lead.wbraid || undefined,
+      timestamp: new Date(lead.created_at).toLocaleString("en-US", {
+        timeZone: "America/Chicago",
+        month: "2-digit",
+        day: "2-digit",
+        year: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true,
+      }),
+      first_name: lead.first_name || "",
+      last_name: lead.last_name || "",
+      email: lead.email || "",
+      phone: lead.phone || "",
+      state: lead.state || "",
+      city: lead.city || "",
+      line: lead.line_of_business || "", // Mapped to 'line' to match sheet
+      commercial_type: lead.commercial_type || "",
+      utm_source: lead.utm_source || "",
+      gclid: lead.gclid || "",
     }
 
     // Send webhook with retry logic

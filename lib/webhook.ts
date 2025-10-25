@@ -12,7 +12,7 @@ export interface WebhookPayload {
   zip: string
   state: string
   city: string
-  line_of_business: string
+  line: string // Changed from line_of_business to match Google Sheets column
   commercial_type?: string
   utm_source?: string
   utm_medium?: string
