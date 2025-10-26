@@ -27,8 +27,9 @@ function checkRateLimit(ip: string): boolean {
 
 export async function POST(request: NextRequest) {
   try {
-    // Rate limiting by IP
-    const ip = request.headers.get("x-forwarded-for") || request.headers.get("x-real-ip") || "unknown"
+    const ip =
+      request.headers.get("x-forwarded-for")?.split(",")[0].trim() || request.headers.get("x-real-ip") || "unknown"
+    const userAgent = request.headers.get("user-agent") || "unknown"
 
     if (!checkRateLimit(ip)) {
       return NextResponse.json({ error: "Too many requests. Please try again later." }, { status: 429 })
@@ -42,6 +43,8 @@ export async function POST(request: NextRequest) {
     if (!validation.valid) {
       return NextResponse.json({ error: "Validation failed", errors: validation.errors }, { status: 400 })
     }
+
+    const leadSource = body.gclid ? "ppc" : body.utm_source || "direct"
 
     // Sanitize and normalize inputs
     const leadData: LeadFormData = {
@@ -65,6 +68,10 @@ export async function POST(request: NextRequest) {
       gclid: body.gclid ? sanitizeInput(body.gclid) : undefined,
       gbraid: body.gbraid ? sanitizeInput(body.gbraid) : undefined,
       wbraid: body.wbraid ? sanitizeInput(body.wbraid) : undefined,
+      lead_source: leadSource,
+
+      ip,
+      user_agent: userAgent,
     }
 
     // Insert into database using service role
@@ -79,11 +86,10 @@ export async function POST(request: NextRequest) {
 
     console.log("[v0] Lead created successfully:", lead.id)
 
-    // Trigger webhook notification (async, don't wait)
     fetch(`${request.nextUrl.origin}/api/notify`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ leadId: lead.id }),
+      body: JSON.stringify({ lead }), // Pass full lead object
     }).catch((error) => {
       console.error("[v0] Failed to trigger webhook:", error)
     })

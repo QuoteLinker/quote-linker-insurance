@@ -14,6 +14,7 @@ import { trackLeadConversion } from "@/lib/analytics"
 import type { LineOfBusiness } from "@/lib/types"
 import { useRouter } from "next/navigation"
 import { CheckCircle } from "lucide-react"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
 interface LeadFormProps {
   defaultState?: string
@@ -39,6 +40,7 @@ export function LeadForm({ defaultState = "MN", defaultCity = "", className = ""
     line_of_business: "" as LineOfBusiness | "",
     commercial_type: "",
     consent_tcpa: false,
+    _hp: "", // Added honeypot field
   })
 
   // Capture attribution params on mount
@@ -48,6 +50,14 @@ export function LeadForm({ defaultState = "MN", defaultCity = "", className = ""
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+
+    if (formData._hp) {
+      console.log("[v0] Honeypot triggered, ignoring submission")
+      // Fake success to not alert bot
+      router.push(`/success?leadId=ignored&lob=${formData.line_of_business}`)
+      return
+    }
+
     setIsSubmitting(true)
     setError(null)
     setErrors({})
@@ -56,13 +66,13 @@ export function LeadForm({ defaultState = "MN", defaultCity = "", className = ""
       // Get stored attribution params
       const attributionParams = getStoredAttributionParams()
 
-      // Submit lead
       const response = await fetch("/api/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...formData,
           ...attributionParams,
+          _hp: undefined, // Don't send honeypot to server
         }),
       })
 
@@ -107,11 +117,23 @@ export function LeadForm({ defaultState = "MN", defaultCity = "", className = ""
     }
   }
 
-  const canProceedToStep2 = formData.line_of_business !== ""
+  const canProceedToStep2 =
+    formData.line_of_business !== "" && (formData.line_of_business !== "commercial" || formData.commercial_type !== "")
   const canProceedToStep3 = canProceedToStep2 && formData.zip !== "" && formData.city !== "" && formData.state !== ""
 
   return (
     <form onSubmit={handleSubmit} className={className}>
+      <input
+        type="text"
+        name="_hp"
+        value={formData._hp}
+        onChange={(e) => handleChange("_hp", e.target.value)}
+        style={{ position: "absolute", left: "-9999px", width: "1px", height: "1px" }}
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+      />
+
       <div className="space-y-6">
         {/* Progress Indicator */}
         <div className="flex items-center justify-between">
@@ -139,7 +161,9 @@ export function LeadForm({ defaultState = "MN", defaultCity = "", className = ""
         {currentStep === 1 && (
           <div className="space-y-4 animate-in fade-in slide-in-from-right-4 duration-300">
             <div className="space-y-2">
-              <h3 className="text-lg font-semibold">What type of insurance do you need?</h3>
+              <h3 className="text-lg font-semibold">
+                What type of insurance do you need? <span className="text-red-500">*</span>
+              </h3>
               <p className="text-sm text-muted-foreground">Select the coverage you're interested in</p>
             </div>
 
@@ -156,7 +180,9 @@ export function LeadForm({ defaultState = "MN", defaultCity = "", className = ""
                   type="button"
                   onClick={() => {
                     handleChange("line_of_business", option.value as LineOfBusiness)
-                    setTimeout(() => setCurrentStep(2), 300)
+                    if (option.value !== "commercial") {
+                      setTimeout(() => setCurrentStep(2), 300)
+                    }
                   }}
                   className={`w-full rounded-lg border-2 p-4 text-left transition-all hover:border-[#00EEFD] hover:bg-[#00EEFD]/5 ${
                     formData.line_of_business === option.value ? "border-[#00EEFD] bg-[#00EEFD]/10" : "border-border"
@@ -171,24 +197,37 @@ export function LeadForm({ defaultState = "MN", defaultCity = "", className = ""
             {formData.line_of_business === "commercial" && (
               <div className="space-y-2 animate-in fade-in slide-in-from-bottom-2 duration-300">
                 <Label htmlFor="commercial_type">
-                  Type of Business <span className="text-red-500">*</span>
+                  Type of Commercial Insurance <span className="text-red-500">*</span>
                 </Label>
-                <Input
-                  id="commercial_type"
-                  type="text"
+                <Select
                   value={formData.commercial_type}
-                  onChange={(e) => handleChange("commercial_type", e.target.value)}
-                  placeholder="e.g., Restaurant, Retail Store, Construction"
-                  required
-                  aria-invalid={!!errors.commercial_type}
-                  aria-describedby={errors.commercial_type ? "commercial_type-error" : undefined}
-                />
+                  onValueChange={(value) => {
+                    handleChange("commercial_type", value)
+                    setTimeout(() => setCurrentStep(2), 300)
+                  }}
+                >
+                  <SelectTrigger id="commercial_type" aria-invalid={!!errors.commercial_type}>
+                    <SelectValue placeholder="Select commercial type" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="bop">Business Owners Policy (BOP)</SelectItem>
+                    <SelectItem value="gl">General Liability (GL)</SelectItem>
+                    <SelectItem value="auto">Commercial Auto</SelectItem>
+                    <SelectItem value="wc">Workers Compensation (WC)</SelectItem>
+                  </SelectContent>
+                </Select>
                 {errors.commercial_type && (
                   <p id="commercial_type-error" className="text-sm text-red-500" role="alert">
                     {errors.commercial_type}
                   </p>
                 )}
               </div>
+            )}
+
+            {errors.line_of_business && (
+              <p className="text-sm text-red-500" role="alert">
+                {errors.line_of_business}
+              </p>
             )}
           </div>
         )}

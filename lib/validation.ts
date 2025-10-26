@@ -31,8 +31,9 @@ export function validateZip(zip: string): boolean {
 }
 
 export function normalizeZip(zip: string): string {
-  // Remove any spaces or non-digit/hyphen characters
-  return zip.replace(/[^\d-]/g, "")
+  // Remove any spaces or non-digit/hyphen characters, then take first 5 digits
+  const cleaned = zip.replace(/[^\d-]/g, "")
+  return cleaned.split("-")[0].slice(0, 5)
 }
 
 export function validateLeadFormData(data: Partial<LeadFormData>): {

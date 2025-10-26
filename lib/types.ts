@@ -1,4 +1,5 @@
 export type LineOfBusiness = "auto" | "home" | "bundle" | "life" | "commercial"
+export type CommercialType = "bop" | "gl" | "auto" | "wc"
 export type LeadStatus = "new" | "contacted" | "quoted" | "bound" | "lost"
 
 export interface Lead {
@@ -31,6 +32,10 @@ export interface Lead {
   gclid?: string | null
   gbraid?: string | null
   wbraid?: string | null
+  lead_source?: string | null
+
+  ip?: string | null
+  user_agent?: string | null
 
   // Admin Fields
   status: LeadStatus
@@ -69,6 +74,33 @@ export interface LeadFormData {
   gclid?: string
   gbraid?: string
   wbraid?: string
+  lead_source?: string
+
+  ip?: string
+  user_agent?: string
+}
+
+export interface ZapierWebhookPayload {
+  timestamp: string
+  first_name: string
+  last_name: string
+  email: string
+  phone: string
+  state: string
+  city: string
+  zip: string
+  line: string // Note: line_of_business mapped to "line"
+  commercial_type: string
+  utm_source: string
+  utm_medium: string
+  utm_campaign: string
+  utm_term: string
+  utm_content: string
+  gclid: string
+  gbraid: string
+  wbraid: string
+  lead_source: string
+  lead_id: string
 }
 
 export interface City {

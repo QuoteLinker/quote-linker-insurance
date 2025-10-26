@@ -1,31 +1,11 @@
+import type { ZapierWebhookPayload } from "./types"
+
 const WEBHOOK_URL = process.env.WEBHOOK_URL
 const WEBHOOK_TIMEOUT_MS = Number.parseInt(process.env.WEBHOOK_TIMEOUT_MS || "10000", 10)
 const WEBHOOK_MAX_RETRIES = Number.parseInt(process.env.WEBHOOK_MAX_RETRIES || "3", 10)
 
-export interface WebhookPayload {
-  lead_id: string
-  timestamp: string
-  first_name: string
-  last_name: string
-  email: string
-  phone: string
-  zip: string
-  state: string
-  city: string
-  line: string // Changed from line_of_business to match Google Sheets column
-  commercial_type?: string
-  utm_source?: string
-  utm_medium?: string
-  utm_campaign?: string
-  utm_term?: string
-  utm_content?: string
-  gclid?: string
-  gbraid?: string
-  wbraid?: string
-}
-
 export async function sendWebhook(
-  payload: WebhookPayload,
+  payload: ZapierWebhookPayload,
   retryCount = 0,
 ): Promise<{ success: boolean; error?: string }> {
   const webhookUrl = WEBHOOK_URL || "https://webhook.site/unique-id-here"
@@ -75,7 +55,7 @@ export async function sendWebhook(
   }
 }
 
-export async function sendFallbackEmail(leadId: string, leadData: WebhookPayload): Promise<void> {
+export async function sendFallbackEmail(leadId: string, leadData: ZapierWebhookPayload): Promise<void> {
   const fallbackEmail = process.env.ALERT_FALLBACK_EMAIL || "admin@quotelinker.com"
 
   if (!process.env.ALERT_FALLBACK_EMAIL) {
@@ -93,3 +73,6 @@ export async function sendFallbackEmail(leadId: string, leadData: WebhookPayload
   //   body: `Lead submission received but webhook failed after all retries.\n\nLead ID: ${leadId}\n\nData: ${JSON.stringify(leadData, null, 2)}`
   // })
 }
+
+// Export types for use in other files
+export type { ZapierWebhookPayload }
