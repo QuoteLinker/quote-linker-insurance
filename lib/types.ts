@@ -74,10 +74,6 @@ export interface LeadFormData {
   gclid?: string
   gbraid?: string
   wbraid?: string
-  lead_source?: string
-
-  ip?: string
-  user_agent?: string
 }
 
 export interface ZapierWebhookPayload {

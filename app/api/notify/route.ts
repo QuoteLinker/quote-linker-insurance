@@ -5,11 +5,13 @@ import type { ZapierWebhookPayload } from "@/lib/types"
 
 export async function POST(request: NextRequest) {
   try {
-    const { lead } = await request.json()
+    const { lead, metadata } = await request.json()
 
     if (!lead || !lead.id) {
       return NextResponse.json({ error: "Lead data is required" }, { status: 400 })
     }
+
+    const leadSource = lead.gclid ? "ppc" : lead.utm_source || "direct"
 
     const zapierPayload: ZapierWebhookPayload = {
       timestamp: lead.created_at, // ISO string
@@ -30,7 +32,7 @@ export async function POST(request: NextRequest) {
       gclid: lead.gclid || "",
       gbraid: lead.gbraid || "",
       wbraid: lead.wbraid || "",
-      lead_source: lead.lead_source || "",
+      lead_source: leadSource, // Derived from gclid or utm_source
       lead_id: lead.id, // DB id
     }
 
